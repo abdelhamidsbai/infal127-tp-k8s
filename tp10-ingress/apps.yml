@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wear
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: wear}
+  template:
+    metadata:
+      labels: {app: wear}
+    spec:
+      containers:
+      - name: wear
+        image: hashicorp/http-echo
+        args: ["-text=wear : la boutique de vêtements"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wear-service
+spec:
+  selector: {app: wear}
+  ports:
+  - port: 80
+    targetPort: 5678
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watch
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: watch}
+  template:
+    metadata:
+      labels: {app: watch}
+    spec:
+      containers:
+      - name: watch
+        image: hashicorp/http-echo
+        args: ["-text=watch : la boutique de montres"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: watch-service
+spec:
+  selector: {app: watch}
+  ports:
+  - port: 80
+    targetPort: 5678

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sonde-demo
+spec:
+  containers:
+  - name: app
+    image: busybox:1.36
+    command: ["sh", "-c"]
+    args:
+    - touch /tmp/ok; sleep 30; rm /tmp/ok; sleep 600
+    livenessProbe:
+      exec:
+        command: ["cat", "/tmp/ok"]
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      failureThreshold: 3

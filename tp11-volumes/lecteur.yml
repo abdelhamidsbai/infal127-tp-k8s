@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: lecteur
+spec:
+  selector:
+    matchLabels: {app: lecteur}
+  template:
+    metadata:
+      labels: {app: lecteur}
+    spec:
+      containers:
+      - name: lecteur
+        image: busybox:1.37
+        command: ["sh", "-c"]
+        args:
+        - echo "Nœud $NODE :"; cat /data/number.out 2>/dev/null || echo "(pas de fichier)"; sleep 3600
+        env:
+        - name: NODE
+          valueFrom:
+            fieldRef: {fieldPath: spec.nodeName}
+        volumeMounts:
+        - mountPath: /data
+          name: data-volume
+      volumes:
+      - name: data-volume
+        hostPath:
+          path: /data
+          type: DirectoryOrCreate

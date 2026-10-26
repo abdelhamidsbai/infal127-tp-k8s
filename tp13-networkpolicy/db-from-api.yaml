@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-from-api
+  namespace: boutique
+spec:
+  podSelector:
+    matchLabels: {app: À_COMPLÉTER}
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels: {app: À_COMPLÉTER}
+    ports:
+    - port: À_COMPLÉTER

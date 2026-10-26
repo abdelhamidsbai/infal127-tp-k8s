@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-et-sidecar
+spec:
+  containers:
+  # Conteneur principal : le serveur web
+  - name: web
+    image: nginx
+  # Conteneur auxiliaire : interroge le serveur toutes les 5 secondes
+  - name: sidecar
+    image: busybox:1.37
+    command: ["/bin/sh", "-c"]
+    args:
+    - while true; do wget -qO- http://localhost:80 | grep -o '<title>.*</title>'; sleep 5; done

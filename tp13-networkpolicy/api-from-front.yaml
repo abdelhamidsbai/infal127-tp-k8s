@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-from-front
+  namespace: boutique
+spec:
+  podSelector:
+    matchLabels: {app: api}
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels: {app: front}
+    ports:
+    - port: 8080

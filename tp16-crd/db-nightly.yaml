@@ -1,0 +1,7 @@
+apiVersion: demo.cesi.fr/v1
+kind: Backup
+metadata:
+  name: db-nightly
+spec:
+  database: mysql
+  schedule: "0 2 * * *"

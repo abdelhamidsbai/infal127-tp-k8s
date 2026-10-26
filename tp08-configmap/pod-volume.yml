@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-volume
+spec:
+  containers:
+  - name: lecteur
+    image: busybox:1.37
+    command: ["sh", "-c"]
+    args:
+    - while true; do echo "$(date +%T) APP_COLOR=$(cat /etc/app/APP_COLOR)"; sleep 5; done
+    volumeMounts:
+    - name: config
+      mountPath: /etc/app
+  volumes:
+  - name: config
+    configMap:
+      name: app-config

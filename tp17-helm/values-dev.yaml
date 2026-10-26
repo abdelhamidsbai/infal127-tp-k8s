@@ -1,0 +1,4 @@
+replicaCount: 1
+ui:
+  message: "Environnement de DEV"
+  color: "#5cb85c"

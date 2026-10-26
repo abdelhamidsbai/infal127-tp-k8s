@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: myapp-v
+  template:
+    metadata:
+      labels:
+        app: myapp-v
+        version: v2
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.28
+        readinessProbe:
+          httpGet: {path: /, port: 8080}   # nginx écoute sur 80 : jamais prêt
+          periodSeconds: 5

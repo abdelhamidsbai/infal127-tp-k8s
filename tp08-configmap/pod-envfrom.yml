@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-check
+spec:
+  restartPolicy: Never
+  containers:
+  - name: check
+    image: busybox:1.37
+    command: ["sh", "-c", "env | sort"]
+    envFrom:
+    - configMapRef:
+        name: app-config

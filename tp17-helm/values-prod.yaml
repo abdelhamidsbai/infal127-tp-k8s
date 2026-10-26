@@ -1,0 +1,10 @@
+replicaCount: 3
+ui:
+  message: "Environnement de PRODUCTION"
+  color: "#34577c"
+resources:
+  requests:
+    cpu: 50m
+    memory: 32Mi
+  limits:
+    memory: 64Mi

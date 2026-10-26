@@ -1,0 +1,20 @@
+# storageclass.yaml : le catalogue
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rapide
+provisioner: rancher.io/local-path
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+---
+# pvc.yaml : la demande
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-pvc
+spec:
+  storageClassName: rapide
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi

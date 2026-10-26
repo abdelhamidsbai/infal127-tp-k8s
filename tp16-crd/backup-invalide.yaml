@@ -1,0 +1,6 @@
+apiVersion: demo.cesi.fr/v1
+kind: Backup
+metadata:
+  name: db-invalide
+spec:
+  database: oracle

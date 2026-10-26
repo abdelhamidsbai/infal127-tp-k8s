@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: journal
+spec:
+  containers:
+  - name: journal
+    image: busybox:1.37
+    command: ["sh", "-c"]
+    args:
+    - echo "--- contenu du journal ---"; cat /data/journal 2>/dev/null; echo "démarrage du pod $HOSTNAME à $(date +%T)" >> /data/journal; sleep 3600
+    volumeMounts:
+    - mountPath: /data
+      name: stockage
+  volumes:
+  - name: stockage
+    persistentVolumeClaim:
+      claimName: data-pvc
