@@ -1,0 +1,29 @@
+{
+  "name": "INFAL127 - TP Kubernetes",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "minikube": "none"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postStartCommand": "k3d cluster start cesi >/dev/null 2>&1 || true",
+  "forwardPorts": [8080, 8081],
+  "portsAttributes": {
+    "8080": { "label": "port-forward (TP)" },
+    "8081": { "label": "Ingress Traefik (TP 10)" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
+}
